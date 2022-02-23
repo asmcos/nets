@@ -1,0 +1,17 @@
+[package]
+name = "net"
+version = "0.1.1"
+license = "MIT OR Apache-2.0"
+description="a library for net"
+readme = "README.md"
+homepage = "https://github.com/asmcos/net"
+repository = "https://github.com/asmcos/net"
+documentation = "https://github.com/asmcos/net/doc"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+[lib]
+name = "net"
