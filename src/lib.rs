@@ -1,14 +1,14 @@
 //
 //
 //
-pub struct client{
+pub struct Client{
 }
 
-pub struct request{
+pub struct Request{
 
 }
 
-pub struct response{
+pub struct Response{
 
 
 }
