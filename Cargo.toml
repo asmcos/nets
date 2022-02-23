@@ -1,5 +1,5 @@
 [package]
-name = "net"
+name = "nets"
 version = "0.1.1"
 license = "MIT OR Apache-2.0"
 description="a library for net"
@@ -14,4 +14,4 @@ edition = "2021"
 [dependencies]
 
 [lib]
-name = "net"
+name = "nets"
