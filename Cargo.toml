@@ -2,16 +2,16 @@
 name = "nets"
 version = "0.1.2"
 license = "MIT OR Apache-2.0"
-description="a library for net"
+description="Nets is a packet sniffer"
 readme = "README.md"
-homepage = "https://github.com/asmcos/net"
-repository = "https://github.com/asmcos/net"
-documentation = "https://github.com/asmcos/net/doc"
+homepage = "https://github.com/asmcos/nets"
+repository = "https://github.com/asmcos/nets"
+documentation = "https://github.com/asmcos/nets/doc"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+pcap = "0.9.x" 
+http = "0.x.x"
 
-[lib]
-name = "nets"
