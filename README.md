@@ -1,24 +1,26 @@
 Nets is a Rust language crate for accessing the packet sniffing capabilities of pcap .
 It's use rust-pcap/pcap.
 
-###Features:
+### Features:
+
 * List Devices
 * parse http request/response
 * display http header information
 
-###Depends:
+### Depends:
+
 * rust-pcap
 * http
 * Linux/MacOSX libpcap, Windows WinPcap
 
-###License:
+### License:
+
 * "MIT OR Apache-2.0"
 
-###Install
-```
+### Install
+
+```bash
 git clone https://github.com/asmcos/nets
 cd nets
 Cargo build
 ```
-
-
