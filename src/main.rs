@@ -2,18 +2,16 @@
 //  packet sniffer
 //
 mod lib;
-mod pcap;
 
 use crate::lib::parse;
-use crate::pcap::Capture;
+use libpcap;
 
 fn main (){
 
     println!("{}","Welcome to use nets");
 
-	Capture::lookup();	
+	let devs = libpcap::lookup();	
 
-
-
-
+    println!("{}",devs);
+	
 }
