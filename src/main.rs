@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(non_camel_case_types)]
+#![allow(warnings, unused)]
 //
 //  packet sniffer
 //
@@ -24,7 +27,18 @@ fn main (){
         let parse = parse::PacketParse::new();
         let data = unsafe { slice::from_raw_parts(Packet.data, Packet.head.len.try_into().unwrap()) };
         let eth = parse.parse_link_layer(data);
-        println!("{:?}",eth);
+        //println!("{:?}",eth);
+        match eth{
+            Ok(tcp)=>{
+                for i in tcp.headers{
+                    
+                        println!("{:?}",i);
+                    
+                }
+            }
+            _ => {}
+        }
+        
     }
 
     libpcap::close(&mut Packet); 
