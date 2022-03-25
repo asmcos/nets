@@ -35,7 +35,7 @@ pub struct ParsedPacket {
     pub len: u32,
     pub timestamp: String,
     pub headers: Vec<PacketHeader>,
-    pub remaining: Vec<u8>,
+    pub payload: Vec<u8>,
 }
 
 impl ParsedPacket {
@@ -44,7 +44,7 @@ impl ParsedPacket {
             len: 0,
             timestamp: "".to_string(),
             headers: vec![],
-            remaining: vec![],
+            payload: vec![],
         }
     }
 }
@@ -128,13 +128,13 @@ impl PacketParse {
                         self.parse_arp(content, &mut pack)?;
                     }
                     _ => {
-                        pack.remaining = content.to_owned();
+                        pack.payload = content.to_owned();
                     }
                 }
                 pack.headers.push(PacketHeader::Ether(headers));
             }
             Err(_) => {
-                pack.remaining = content.to_owned();
+                pack.payload = content.to_owned();
             }
         }
         Ok(pack)
@@ -152,7 +152,7 @@ impl PacketParse {
                 Ok(())
             }
             Err(err) => {
-                parsed_packet.remaining = content.to_owned();
+                parsed_packet.payload = content.to_owned();
                 Err(err.to_string())
             }
         }
@@ -170,7 +170,7 @@ impl PacketParse {
                 Ok(())
             }
             Err(err) => {
-                parsed_packet.remaining = content.to_owned();
+                parsed_packet.payload = content.to_owned();
                 Err(err.to_string())
             }
         }
@@ -192,7 +192,7 @@ impl PacketParse {
                 Ok(())
             }
             _ => {
-                parsed_packet.remaining = content.to_owned();
+                parsed_packet.payload = content.to_owned();
                 Err("Neither TCP nor UDP".to_string())
             }
         }
@@ -206,7 +206,7 @@ impl PacketParse {
                 Ok(())
             }
             Err(err) => {
-                parsed_packet.remaining = content.to_owned();
+                parsed_packet.payload = content.to_owned();
                 Err(err.to_string())
             }
         }
@@ -220,7 +220,7 @@ impl PacketParse {
                 Ok(())
             }
             Err(err) => {
-                parsed_packet.remaining = content.to_owned();
+                parsed_packet.payload = content.to_owned();
                 Err(err.to_string())
             }
         }
@@ -233,7 +233,7 @@ impl PacketParse {
                 Ok(())
             }
             Err(err) => {
-                parsed_packet.remaining = content.to_owned();
+                parsed_packet.payload = content.to_owned();
                 Err(err.to_string())
             }
         }
@@ -247,7 +247,7 @@ impl PacketParse {
                     .push(PacketHeader::Dns(DnsPacket::from(packet)));
             }
             Err(_) => {
-                parsed_packet.remaining = content.to_owned();
+                parsed_packet.payload = content.to_owned();
             }
         }
     }
@@ -265,7 +265,7 @@ impl PacketParse {
                         parsed_packet
                             .headers
                             .push(PacketHeader::Tls(TlsType::ApplicationData));
-                        parsed_packet.remaining = app_data.blob.to_owned();
+                        parsed_packet.payload = app_data.blob.to_owned();
                     }
                     TlsMessage::Heartbeat(_) => {
                         parsed_packet
@@ -288,9 +288,9 @@ impl PacketParse {
             parsed_packet
                 .headers
                 .push(PacketHeader::Tls(TlsType::EncryptedData));
-            parsed_packet.remaining = headers.msg.blob.to_owned();
+            parsed_packet.payload = headers.msg.blob.to_owned();
         } else {
-            parsed_packet.remaining = content.to_owned();
+            parsed_packet.payload = content.to_owned();
         }
     }
 }
