@@ -6,7 +6,8 @@
 //
 mod lib;
 
-use crate::lib::parse;
+use crate::lib::ethparse;
+use crate::lib::httparse;
 use libpcap;
 use std::slice;
 
@@ -20,21 +21,28 @@ fn main (){
 
     let mut Packet = libpcap::open(dev.as_str());
 
-
+    libpcap::setfilter(&mut Packet,"tcp port 80");
     while let data = libpcap::next_ex(&mut Packet){
         println!("Packet Length {:?}",Packet.head.len);
 
-        let parse = parse::PacketParse::new();
+        let parse = ethparse::PacketParse::new();
         let data = unsafe { slice::from_raw_parts(Packet.data, Packet.head.len.try_into().unwrap()) };
         let eth = parse.parse_link_layer(data);
         //println!("{:?}",eth);
         match eth{
-            Ok(tcp)=>{
-                for i in tcp.headers{
-                    
-                        println!("{:?}",i);
-                    
+            Ok(p)=>{
+                let tcp = p.headers.get(0);
+                match tcp{ 
+                    Some(ethparse::PacketHeader::Tcp(packet))=>{
+                        //println!("{:?}",packet);
+                        if (p.payload.len() > 10){
+                            httparse::isRequest(&p.payload);
+                        }
+                            
+                    }
+                    _ => {}
                 }
+            
             }
             _ => {}
         }
