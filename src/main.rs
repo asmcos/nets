@@ -8,6 +8,7 @@ mod lib;
 
 use crate::lib::ethparse;
 use crate::lib::httparse;
+use crate::lib::Stream::Stream;
 use libpcap;
 use std::slice;
 
@@ -23,7 +24,14 @@ fn main (){
 
     libpcap::setfilter(&mut Packet,"tcp port 80");
     while let data = libpcap::next_ex(&mut Packet){
+        if (data == 0){
+            continue;
+        }
         println!("Packet Length {:?}",Packet.head.len);
+        
+        //let s = unsafe{
+        //    Stream::from_raw(Packet.data as *mut u8,Packet.head.len as usize)
+        //};
 
         let parse = ethparse::PacketParse::new();
         let data = unsafe { slice::from_raw_parts(Packet.data, Packet.head.len.try_into().unwrap()) };
