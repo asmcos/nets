@@ -29,10 +29,13 @@ fn main (){
         }
         println!("Packet Length {:?}",Packet.head.len);
         
-        //let s = unsafe{
-        //    Stream::from_raw(Packet.data as *mut u8,Packet.head.len as usize)
-        //};
+        let s = unsafe{
+            Stream::from_raw(Packet.data,Packet.head.len as usize)
+        };
 
+        println!("{:?}",s.buf);
+
+        /*
         let parse = ethparse::PacketParse::new();
         let data = unsafe { slice::from_raw_parts(Packet.data, Packet.head.len.try_into().unwrap()) };
         let eth = parse.parse_link_layer(data);
@@ -53,7 +56,8 @@ fn main (){
             
             }
             _ => {}
-        }
+        }*/
+
         
     }
 
