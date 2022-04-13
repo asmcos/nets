@@ -35,10 +35,9 @@ fn main (){
 
         println!("{:?}",s.buf);
 
-        /*
+        
         let parse = ethparse::PacketParse::new();
-        let data = unsafe { slice::from_raw_parts(Packet.data, Packet.head.len.try_into().unwrap()) };
-        let eth = parse.parse_link_layer(data);
+        let eth = parse.parse_link_layer(&s.buf.as_slice());
         //println!("{:?}",eth);
         match eth{
             Ok(p)=>{
@@ -56,8 +55,7 @@ fn main (){
             
             }
             _ => {}
-        }*/
-
+        }
         
     }
 
