@@ -8,7 +8,7 @@ mod lib;
 
 use crate::lib::ethparse;
 use crate::lib::httparse;
-use crate::lib::Stream::Stream;
+use crate::lib::stream::Stream;
 use libpcap;
 use std::slice;
 
